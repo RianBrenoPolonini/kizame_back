@@ -8,5 +8,5 @@ class User < ApplicationRecord
   validates :email, length: { maximum: 255 }, uniqueness: { case_sensitive: false },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  enum role: { admin: 0, teacher: 1, student: 2 }
+  enum :role, %i[admin teacher student], default: :student
 end
