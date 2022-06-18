@@ -1,23 +1,23 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.3"
+ruby '3.0.3'
 
-gem "rails", "~> 7.0.3"
+gem 'rails', '~> 7.0.3'
 
-gem "pg", "~> 1.1"
+gem 'pg', '~> 1.1'
 
-gem "puma", "~> 5.0"
+gem 'puma', '~> 5.0'
 
-gem "bcrypt", "~> 3.1.7"
+gem 'bcrypt', '~> 3.1.7'
 
 gem 'active_model_serializers'
 
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "bootsnap", require: false
+gem 'bootsnap', require: false
 
-gem "rack-cors"
+gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', '~> 11.1'
@@ -31,4 +31,3 @@ end
 group :development do
   gem 'brakeman'
 end
-
