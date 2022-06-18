@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ModalitiesController < ApplicationController
-  before_action :set_modality, only: %i[ show update destroy ]
+  before_action :set_modality, only: %i[show update destroy]
 
   # GET /modalities
   # GET /modalities.json
@@ -9,8 +11,7 @@ class ModalitiesController < ApplicationController
 
   # GET /modalities/1
   # GET /modalities/1.json
-  def show
-  end
+  def show; end
 
   # POST /modalities
   # POST /modalities.json
@@ -18,9 +19,9 @@ class ModalitiesController < ApplicationController
     @modality = Modality.new(modality_params)
 
     if @modality.save
-      render :show, status: :created, location: @modality
+      render(:show, status: :created, location: @modality)
     else
-      render json: @modality.errors, status: :unprocessable_entity
+      render(json: @modality.errors, status: :unprocessable_entity)
     end
   end
 
@@ -28,9 +29,9 @@ class ModalitiesController < ApplicationController
   # PATCH/PUT /modalities/1.json
   def update
     if @modality.update(modality_params)
-      render :show, status: :ok, location: @modality
+      render(:show, status: :ok, location: @modality)
     else
-      render json: @modality.errors, status: :unprocessable_entity
+      render(json: @modality.errors, status: :unprocessable_entity)
     end
   end
 
@@ -41,13 +42,14 @@ class ModalitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_modality
-      @modality = Modality.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def modality_params
-      params.require(:modality).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_modality
+    @modality = Modality.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def modality_params
+    params.require(:modality).permit(:name)
+  end
 end
