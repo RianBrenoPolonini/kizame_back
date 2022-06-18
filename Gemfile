@@ -9,8 +9,6 @@ gem "pg", "~> 1.1"
 
 gem "puma", "~> 5.0"
 
-gem 'jbuilder'
-
 gem "bcrypt", "~> 3.1.7"
 
 gem 'active_model_serializers'
