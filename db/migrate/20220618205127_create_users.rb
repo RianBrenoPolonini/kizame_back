@@ -3,9 +3,9 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users, id: :uuid do |t|
       t.string :first_name
       t.string :last_name
-      t.string :email
+      t.string :email, index: { unique: true }
       t.string :password_digest
-      t.integer :role
+      t.integer :role, default: 2
 
       t.timestamps
     end
