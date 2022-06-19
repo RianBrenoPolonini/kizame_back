@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
     if @user&.authenticate(user_params[:password])
 
-      token = encode_user_data({ user_data: @user.id })
+      token = encode_user_data({ user_id: @user.id })
 
       render(json: { token: token, user: UserSerializer.new(@user) })
     else

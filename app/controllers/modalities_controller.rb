@@ -2,6 +2,7 @@
 
 class ModalitiesController < ApplicationController
   before_action :set_modality, only: %i[show update destroy]
+  before_action :authentication, except: %i[index]
 
   # GET /modalities
   def index

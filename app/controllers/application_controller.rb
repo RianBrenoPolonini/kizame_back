@@ -4,22 +4,20 @@ class ApplicationController < ActionController::API
   SECRET = ENV.fetch('SECRET_KEY_JWT')
 
   def authentication
-    decode_data = decode_user_data(request.headers['token'])
-    user_data = decode_data[0]['user_id'] if decode_data
-    user = User.find(user_data&.id)
-
-    return true if user
-
-    render(json: { message: 'invalid credentials' })
+    header = request.headers['token']
+    header = header.split.last if header
+    begin
+      @decoded = JWT.decode(header, SECRET, true, { algorithm: 'HS256' })
+      @current_user = User.find(@decoded[0]['user_id'])
+    rescue ActiveRecord::RecordNotFound => e
+      render(json: { errors: e.message }, status: :unauthorized)
+    rescue JWT::DecodeError
+      render(json: { error: 'Token invalido' }, status: :unauthorized)
+    end
   end
 
-  def encode_user_data(payload)
+  def encode_user_data(payload, exp = 20.minutes.from_now)
+    payload[:exp] = exp.to_i
     JWT.encode(payload, SECRET, 'HS256')
-  end
-
-  def decode_user_data(token)
-    JWT.decode(token, SECRET, true, { algorithm: 'HS256' })
-  rescue StandardError => e
-    Rails.logger.debug(e)
   end
 end
