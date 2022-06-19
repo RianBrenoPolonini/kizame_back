@@ -2,7 +2,8 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
-
+  before_action :authentication
+  load_and_authorize_resource
   # GET /users
   def index
     @users = User.all
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
+    @user.role = params[:user][:role] if params[:user][:role].present?
     if @user.save
       render(json: @user, status: :created, location: @user)
     else

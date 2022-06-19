@@ -16,8 +16,16 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def current_ability
+    @current_ability ||= Ability.new(@current_user)
+  end
+
   def encode_user_data(payload, exp = 20.minutes.from_now)
     payload[:exp] = exp.to_i
     JWT.encode(payload, SECRET, 'HS256')
+  end
+
+  rescue_from CanCan::AccessDenied do
+    render(json: { error: 'Não autorizado' }, status: :unauthorized)
   end
 end

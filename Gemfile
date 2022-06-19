@@ -15,6 +15,8 @@ gem 'active_model_serializers'
 
 gem 'jwt'
 
+gem 'cancancan'
+
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'bootsnap', require: false
