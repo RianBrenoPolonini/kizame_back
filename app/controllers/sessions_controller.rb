@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
       render(json: { token: token, user: UserSerializer.new(@user) })
     else
-      render(json: { message: 'E-mail ou Senha invalidos' })
+      render(json: { message: 'E-mail ou Senha invalidos' }, status: :unauthorized)
     end
   end
 
