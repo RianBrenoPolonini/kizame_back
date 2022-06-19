@@ -5,6 +5,7 @@ class User < ApplicationRecord
   before_save { email.downcase! }
 
   belongs_to :modality
+  has_many :classrom, -> { where(:role == 'teacher') }, dependent: :nullify, inverse_of: false
 
   validates :first_name, :last_name, :email, presence: true
   validates :password, length: { minimum: 6 }

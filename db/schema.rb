@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_18_224520) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_19_190617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "classroms", force: :cascade do |t|
+    t.string "name"
+    t.text "day", default: [], array: true
+    t.text "time", default: [], array: true
+    t.bigint "modality_id", null: false
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modality_id"], name: "index_classroms_on_modality_id"
+    t.index ["user_id"], name: "index_classroms_on_user_id"
+  end
 
   create_table "modalities", force: :cascade do |t|
     t.string "name"
@@ -34,5 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_18_224520) do
     t.index ["modality_id"], name: "index_users_on_modality_id"
   end
 
+  add_foreign_key "classroms", "modalities"
   add_foreign_key "users", "modalities"
 end
